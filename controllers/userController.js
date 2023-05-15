@@ -2,11 +2,11 @@ const userModel = require('../models/userModel');
 
 // metodo para obtener el usuario
 exports.getUser = (req, res) => {
-    const {email} = req.params;
+    const {email, password} = req.params;
 
-    userModel.findOne({email: email})
+    userModel.findOne({email: email, password: password})
     .then(email => {
-        if(!email) throw new Error('User or password incorrect')
+        if(!email || !password) throw new Error('User or password incorrect')
         res.json(email);
     })
     .catch(err => res.status(500).json({error: err.message}))
