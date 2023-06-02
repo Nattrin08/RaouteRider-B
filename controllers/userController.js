@@ -13,27 +13,34 @@ exports.getAllUsers = (req, res) => {
 exports.createUser = (req, res) => {
     const {firstName, lastName, email, password, birthDate, city, mobile, motorcycle, brand, model, year, registerDate} = req.body;
     const saltRounds = 10;
-    bcrypt.hash(password, saltRounds, function(err, hash){
-        if(err) {
-            return res.status(500).json({error: err.message});
+    userModel.findOne({email})
+    .then ((user) => {
+        if(user) {
+            return res.status(400).json({error: "User already exist"}) // valida que el usuario no exita
         } else {
-            const newUser = new userModel({
-                firstName,
-                lastName,
-                email,
-                password: hash,
-                birthDate,
-                city,
-                mobile,
-                motorcycle,
-                brand,
-                model,
-                year,
-                registerDate
+            bcrypt.hash(password, saltRounds, function(err, hash){
+                if(err) {
+                    return res.status(500).json({error: err.message});
+                } else {
+                    const newUser = new userModel({
+                        firstName,
+                        lastName,
+                        email,
+                        password: hash,
+                        birthDate,
+                        city,
+                        mobile,
+                        motorcycle,
+                        brand,
+                        model,
+                        year,
+                        registerDate: new Date
+                    });
+                    newUser.save()
+                    .then(() => res.status(201).json({success: "User created"}))
+                    .catch(err => res.status(500).json({error: err.message}));
+                }
             });
-            newUser.save()
-            .then(() => res.status(201).json({success: "User created"}))
-            .catch(err => res.status(500).json({error: err.message}));
         }
     });
 };
