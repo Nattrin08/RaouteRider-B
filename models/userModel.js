@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // dirección de la base de datos en MongoDb
-const uri ='';
+const uri ='mongodb+srv://nattrincon08:zFy1vnOTNPIo8ms7@firstbd.4w987ju.mongodb.net/FirstBD?retryWrites=true&w=majority';
 
 // conexión a la base de datos
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
