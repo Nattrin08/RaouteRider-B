@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require ("cors")
 
 // se guardan en la variable app todos los metodos de express
 const app = express();
@@ -8,6 +9,11 @@ const port = 3000;
 
 // importa la clase userRoute
 const userRoute = require("./routes/userRoute");
+app.use(cors(
+    {
+        origin: "*"
+    }
+))
 const commentRoute = require("./routes/commentRoute");
 
 app.use(express.json());
