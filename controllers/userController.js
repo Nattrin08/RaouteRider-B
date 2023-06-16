@@ -11,7 +11,7 @@ exports.getAllUsers = (req, res) => {
 
 // metodo para crear un usuario
 exports.createUser = (req, res) => {
-    const {firstName, lastName, email, password, birthDate, city, mobile, motorcycle, brand, model, year, registerDate} = req.body;
+    const {firstName, lastName, email, password, /*birthDate, city, mobile, motorcycle, brand, model, year,*/ registerDate} = req.body;
     const saltRounds = 10;
     userModel.findOne({email})
     .then ((user) => {
@@ -27,13 +27,13 @@ exports.createUser = (req, res) => {
                         lastName,
                         email,
                         password: hash,
-                        birthDate,
-                        city,
-                        mobile,
-                        motorcycle,
-                        brand,
-                        model,
-                        year,
+                        // birthDate,
+                        // city,
+                        // mobile,
+                        // motorcycle,
+                        // brand,
+                        // model,
+                        // year,
                         registerDate: new Date
                     });
                     newUser.save()
